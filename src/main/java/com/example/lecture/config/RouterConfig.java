@@ -17,13 +17,13 @@ public class RouterConfig {
     public RouterFunction<ServerResponse> getRoute(PostHandler postHandler) {
         return RouterFunctions.route()
                 .path("/lecture", builder -> builder
-                        .POST("/take", accept(APPLICATION_JSON), postHandler::takeLecture)
+                        .POST("/take", accept(APPLICATION_JSON), postHandler::enrollLecture)
                         .GET("/{id}/{studentId}/lectureContents", accept(APPLICATION_JSON), postHandler::getLectureContents)
                         .POST("/{id}/{studentId}/evaluate", accept(APPLICATION_JSON), postHandler::evaluateLecture)
                         .GET("/{memberId}", accept(APPLICATION_JSON), postHandler::getLectures)
                         .POST("/make", accept(APPLICATION_JSON), postHandler::makeLecture)
                         .PATCH("/{id}/show/{studentId}", accept(APPLICATION_JSON), postHandler::showLecture)
-                        .PATCH("/{id}/hide/{studentId}", accept(APPLICATION_JSON), postHandler::hideLectureAndOpenStarValue)
+                        .PATCH("/{id}/hide/{studentId}", accept(APPLICATION_JSON), postHandler::hideLectureAndGetStarValue)
                         .POST("/{id}/upload", accept(APPLICATION_JSON), postHandler::uploadLectureContent)
                         .POST("/{id}/test", accept(APPLICATION_JSON), postHandler::uploadTest)
                         .PATCH("/{id}/{studentId}/score", accept(APPLICATION_JSON), postHandler::makeScore)

@@ -4,6 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class Test {
-    private String name;
-    private String content;
+    private String testName;
+    private String testContent;
 }

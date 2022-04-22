@@ -3,15 +3,14 @@ package com.example.lecture.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @NoArgsConstructor
-public class Student {
+public class registeredStudent {
+    private long id;
     private long studentId;
     private int score;
     private int starValue;
     private boolean showLecture;
 
-    private List<Lecture> lectures;
+    private Lecture lectures;
 }

@@ -1,7 +1,7 @@
 package com.example.lecture.component;
 
 import com.example.lecture.dto.LectureDto;
-import com.example.lecture.dto.StudentDto;
+import com.example.lecture.dto.registeredStudentDto;
 import com.example.lecture.service.LectureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -22,8 +22,8 @@ public class PostHandler {
     private final WebClient webClient;
     private final LectureService lectureService;
 
-    public Mono<ServerResponse> takeLecture(ServerRequest serverRequest) {
-        Mono<LectureDto> lectureDto = lectureService.takeLecture(serverRequest)
+    public Mono<ServerResponse> enrollLecture(ServerRequest serverRequest) {
+        Mono<LectureDto> lectureDto = lectureService.enrollLecture(serverRequest)
                 .map(LectureDto::new);
 
         return lectureResponseOK(lectureDto);
@@ -79,8 +79,8 @@ public class PostHandler {
 
     // 6. 강의를 노출
     public Mono<ServerResponse> showLecture(ServerRequest serverRequest) {
-        Mono<StudentDto> studentDto = lectureService.showLecture(serverRequest)
-                .map(StudentDto::new);
+        Mono<registeredStudentDto> studentDto = lectureService.showLecture(serverRequest)
+                .map(registeredStudentDto::new);
 
         return studentResponseOK(studentDto);
     }
@@ -88,9 +88,9 @@ public class PostHandler {
     ;
 
     // 7. 강의 노출을 종료하고 학생 별점 열람
-    public Mono<ServerResponse> hideLectureAndOpenStarValue(ServerRequest serverRequest) {
-        Mono<StudentDto> studentDto = lectureService.hideLectureAndOpenStarValue(serverRequest)
-                .map(StudentDto::new);
+    public Mono<ServerResponse> hideLectureAndGetStarValue(ServerRequest serverRequest) {
+        Mono<registeredStudentDto> studentDto = lectureService.hideLectureAndGetStarValue(serverRequest)
+                .map(registeredStudentDto::new);
 
         return studentResponseOK(studentDto);
     }
@@ -118,8 +118,8 @@ public class PostHandler {
 
     // 11. 강사는 학생 성적 입력 가능
     public Mono<ServerResponse> makeScore(ServerRequest serverRequest) {
-        Mono<StudentDto> studentDto = lectureService.makeScore(serverRequest)
-                .map(StudentDto::new);
+        Mono<registeredStudentDto> studentDto = lectureService.makeScore(serverRequest)
+                .map(registeredStudentDto::new);
 
         return studentResponseOK(studentDto);
     }
@@ -131,11 +131,11 @@ public class PostHandler {
                 .body(lectureDto, LectureDto.class);
     }
 
-    private Mono<ServerResponse> studentResponseOK(Mono<StudentDto> studentDto) {
+    private Mono<ServerResponse> studentResponseOK(Mono<registeredStudentDto> studentDto) {
         return ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(studentDto, StudentDto.class);
+                .body(studentDto, registeredStudentDto.class);
     }
 
 
